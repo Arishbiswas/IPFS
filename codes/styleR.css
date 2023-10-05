@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>PLC - Home</title>
+		<link rel="stylesheet" href="cssDis/styleD.css" />
+	</head>
+
+	<body>
+		<nav class="topnav">
+		  <h1>Blockchain and AI based Product LifeCycle</h1>
+		  <a class="active" href="index.html">Home</a>
+		  <a href="">Manufacturer</a>
+		  <a href="">Distributor</a>
+		  <a href="">Retailer</a>
+		  <a href="">Service Center</a>
+		  <a href="">Customer Feedback</a>
+		  <button id='loginButton' class="enableEthereumButton">Login with Metamask</button>
+		  <p id='userWallet'></p>
+		  <script>
+            window.userWalletAddress = null
+            const loginButton = document.getElementById('loginButton')
+            const userWallet = document.getElementById('userWallet')
+        
+            function toggleButton() {
+              if (!window.ethereum) {
+                alert("MetaMask is not installed");
+                return false
+              }
+        
+              loginButton.addEventListener('click', loginWithMetaMask)
+            }
+        
+            async function loginWithMetaMask() {
+              const accounts = await ethereum.request({ method: 'eth_requestAccounts' })
+                .catch((e) => {
+                  console.error(e.message)
+                  return
+                })
+              if (!accounts) { return }
+        
+              window.userWalletAddress = accounts[0]
+              userWallet.innerText = window.userWalletAddress
+              loginButton.innerText = 'Sign out of MetaMask'
+        
+              loginButton.removeEventListener('click', loginWithMetaMask)
+              setTimeout(() => {
+                loginButton.addEventListener('click', signOutOfMetaMask)
+              }, 200)
+            }
+        
+            function signOutOfMetaMask() {
+              window.userWalletAddress = null
+              userWallet.innerText = ''
+              loginButton.innerText = 'Sign in with MetaMask'
+        
+              loginButton.removeEventListener('click', signOutOfMetaMask)
+              setTimeout(() => {
+                loginButton.addEventListener('click', loginWithMetaMask)
+              }, 200)
+            }
+        
+            window.addEventListener('DOMContentLoaded', () => {
+              toggleButton()
+            });
+          </script>
+		</nav>
+		
+		<div class="Info">
+			<form>
+       
+                  <h1>Retailer</h1>
+                  <p>Fill the product details</p><br><br>
+                  
+        <table>
+              
+          <tr>
+            <td><label for="id"><b>Product Id: </b></label></td>
+            <td><input type="text" placeholder="Enter Product Id" name="email" id="email" required></td>
+              
+          </tr>
+          <tr>
+            <td><label for="Radd"><b>Recieving Address:</b></label></td>
+            <td><input type="text" placeholder="Enter Address where the product was recieved." name="Radd" id="Radd" required></td>
+          </tr>
+          <tr>
+                  
+            <td><label for="Rdate"><b>Recieving Date: </b></label></td>
+                  <td><input type="date" placeholder="Enter date when the product was recieved." name="Rdate" id="Rdate" required></td>
+          </tr>
+          <tr>
+
+
+            <td><label for="name"><b>Retailer Name:</b></label></td>
+                  <td><input type="text" placeholder="Enter Distributer Name" name="name" id="name" required></td>
+          </tr>
+          <tr>
+              
+            <td><label for="Did"><b>Retailer Id</b></label></td>
+                  <td><input type="id" placeholder="Enter Distributer Id" name="Did" id="Did" required></td>
+          </tr>
+           <tr>
+             
+             <td><label for="status"><b>Sold status</b></label></td>
+
+                 
+                    <td><select name="status" id="status">
+                    <option value="sold">Sold</option>
+                    <option value="unsold">Unsold</option>
+                      </select></td>
+                   </tr>
+          <tr><td><button type="submit" class="registerbtn">Submit</button></td></tr>
+          
+                </div>
+              
+            </form>
+		</div>	
+	</body>
+
+</html>
+
+
